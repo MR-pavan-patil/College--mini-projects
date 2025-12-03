@@ -3,9 +3,10 @@ const languageConfigs = {
     python: { 
         language: 'python', 
         version: '3.10.0', 
-        defaultCode: `# Python Code Example
+        defaultCode: `# Python Example
 name = input("Enter your name: ")
-print(f"Hello, {name}!")
+age = input("Enter your age: ")
+print(f"Hello {name}! You are {age} years old.")
 
 # Loop example
 for i in range(1, 6):
@@ -15,13 +16,7 @@ for i in range(1, 6):
     javascript: { 
         language: 'javascript', 
         version: '18.15.0', 
-        defaultCode: `// JavaScript Code Example
-const readline = require('readline');
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
-
+        defaultCode: `// JavaScript Example
 console.log("Hello from JavaScript!");
 
 // Loop example
@@ -36,7 +31,7 @@ numbers.forEach(num => console.log(\`Number: \${num}\`));`,
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         
         System.out.println("Hello from Java!");
         
@@ -47,7 +42,7 @@ public class Main {
         
         // Input example
         System.out.print("Enter your name: ");
-        String name = scanner.nextLine();
+        String name = sc.nextLine();
         System.out.println("Hello, " + name + "!");
     }
 }`,
@@ -145,7 +140,7 @@ fn main() {
     // Input example
     println!("Enter your name:");
     let mut name = String::new();
-    io::stdin().read_line(&mut name).expect("Failed to read");
+    io::stdin().read_line(&mut name).expect("Failed");
     print!("Hello, {}", name);
 }`,
         monacoLang: 'rust'
@@ -195,14 +190,17 @@ const languageSelect = document.getElementById('languageSelect');
 const runBtn = document.getElementById('runBtn');
 const clearBtn = document.getElementById('clearBtn');
 const formatBtn = document.getElementById('formatBtn');
-const inputArea = document.getElementById('inputArea');
 const outputArea = document.getElementById('output');
-const statusIndicator = document.getElementById('statusIndicator');
 const statusDot = document.querySelector('.status-dot');
 const statusText = document.querySelector('.status-text');
 const loadingOverlay = document.getElementById('loadingOverlay');
 const copyOutput = document.getElementById('copyOutput');
-const clearInputBtn = document.getElementById('clearInputBtn');
+
+// Modal elements
+const inputModal = document.getElementById('inputModal');
+const modalInputArea = document.getElementById('modalInputArea');
+const submitInputBtn = document.getElementById('submitInputBtn');
+const cancelInputBtn = document.getElementById('cancelInputBtn');
 
 // Initialize Monaco Editor
 require.config({ paths: { vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs' } });
@@ -227,13 +225,9 @@ require(['vs/editor/editor.main'], function () {
             verticalScrollbarSize: 10,
             horizontalScrollbarSize: 10
         },
-        folding: true,
-        suggest: {
-            snippetsPreventQuickSuggestions: false
-        }
+        folding: true
     });
 
-    // Keyboard shortcut to run code
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, function () {
         runCode();
     });
@@ -271,7 +265,37 @@ languageSelect.addEventListener('change', (e) => {
     updateStatus('Ready', 'normal');
 });
 
-// Run code function with input support
+// Check if code needs input
+function needsInput(code) {
+    const inputPatterns = [
+        /input\s*\(/i,              // Python input()
+        /scanf\s*\(/i,              // C scanf()
+        /cin\s*>>/i,                // C++ cin
+        /Scanner/i,                 // Java Scanner
+        /readLine\s*\(/i,           // Various readLine
+        /ReadString\s*\(/i,         // Go ReadString
+        /read_line\s*\(/i,          // Rust read_line
+        /fgets\s*\(/i,              // C/PHP fgets
+        /gets/i,                    // Ruby gets
+        /STDIN/i                    // General STDIN
+    ];
+    
+    return inputPatterns.some(pattern => pattern.test(code));
+}
+
+// Show input modal
+function showInputModal() {
+    inputModal.classList.remove('hidden');
+    modalInputArea.value = '';
+    modalInputArea.focus();
+}
+
+// Hide input modal
+function hideInputModal() {
+    inputModal.classList.add('hidden');
+}
+
+// Run code function
 async function runCode() {
     const code = editor.getValue().trim();
     
@@ -280,10 +304,19 @@ async function runCode() {
         return;
     }
 
-    // Get user input
-    const userInput = inputArea.value;
+    // Check if code needs input
+    if (needsInput(code)) {
+        showInputModal();
+        return;
+    }
 
-    // Show loading
+    // Execute code without input
+    executeCode(code, '');
+}
+
+// Execute code with or without input
+async function executeCode(code, userInput) {
+    hideInputModal();
     loadingOverlay.classList.remove('hidden');
     updateStatus('Running...', 'loading');
 
@@ -298,7 +331,6 @@ async function runCode() {
             }]
         };
 
-        // Add stdin (input) if provided
         if (userInput) {
             requestBody.stdin = userInput;
         }
@@ -311,36 +343,45 @@ async function runCode() {
             body: JSON.stringify(requestBody)
         });
 
-        const result = await response.json();
+        if (!response.ok) {
+            throw new Error(`HTTP Error: ${response.status} - ${response.statusText}`);
+        }
 
-        // Hide loading
+        const result = await response.json();
         loadingOverlay.classList.add('hidden');
 
         if (result.run) {
             if (result.run.stderr) {
-                // Error occurred
                 const errorOutput = `❌ Error:\n${result.run.stderr}`;
                 showOutput(errorOutput, 'error');
                 updateStatus('Error', 'error');
             } else if (result.run.stdout) {
-                // Successful execution
                 const successOutput = `✅ Output:\n${result.run.stdout}`;
                 showOutput(successOutput, 'success');
                 updateStatus('Success', 'success');
             } else {
-                // No output
                 showOutput('✅ Code executed successfully with no output.', 'success');
                 updateStatus('Success', 'success');
             }
         } else {
-            throw new Error('Unexpected response from API');
+            throw new Error('Unexpected API response format');
         }
 
     } catch (error) {
         loadingOverlay.classList.add('hidden');
-        showOutput(`❌ Compilation Error:\n${error.message}\n\nPlease check your code and try again.`, 'error');
+        let errorMessage = `❌ Compilation Error:\n${error.message}\n\n`;
+        
+        if (error.message.includes('Failed to fetch')) {
+            errorMessage += 'Network Error: Unable to connect to the compiler API.\nPlease check your internet connection and try again.';
+        } else if (error.message.includes('HTTP Error')) {
+            errorMessage += 'API Error: The compiler service is temporarily unavailable.\nPlease try again in a few moments.';
+        } else {
+            errorMessage += 'Please check your code and try again.';
+        }
+        
+        showOutput(errorMessage, 'error');
         updateStatus('Failed', 'error');
-        console.error('Error:', error);
+        console.error('Detailed Error:', error);
     }
 }
 
@@ -376,11 +417,6 @@ function formatCode() {
     }
 }
 
-// Clear input function
-function clearInput() {
-    inputArea.value = '';
-}
-
 // Copy output function
 function copyOutputText() {
     const outputText = outputArea.textContent;
@@ -404,9 +440,34 @@ runBtn.addEventListener('click', runCode);
 clearBtn.addEventListener('click', clearCode);
 formatBtn.addEventListener('click', formatCode);
 copyOutput.addEventListener('click', copyOutputText);
-clearInputBtn.addEventListener('click', clearInput);
+
+// Modal event listeners
+submitInputBtn.addEventListener('click', () => {
+    const code = editor.getValue().trim();
+    const userInput = modalInputArea.value;
+    executeCode(code, userInput);
+});
+
+cancelInputBtn.addEventListener('click', () => {
+    hideInputModal();
+    updateStatus('Cancelled', 'normal');
+});
+
+// Close modal on Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !inputModal.classList.contains('hidden')) {
+        hideInputModal();
+    }
+});
+
+// Submit on Ctrl+Enter in modal
+modalInputArea.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+        submitInputBtn.click();
+    }
+});
 
 // Welcome message
 console.log('%c🚀 CodeX Professional IDE Ready!', 'color: #6366f1; font-size: 24px; font-weight: bold;');
-console.log('%c✨ Press Ctrl+Enter to run your code', 'color: #8b5cf6; font-size: 14px;');
-console.log('%c💡 Use the Input section for stdin data', 'color: #10b981; font-size: 14px;');
+console.log('%c✨ Press Ctrl+Enter to run code', 'color: #8b5cf6; font-size: 14px;');
+console.log('%c💡 Input popup appears automatically when needed!', 'color: #10b981; font-size: 14px;');

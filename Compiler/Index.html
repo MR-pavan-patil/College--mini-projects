@@ -96,48 +96,27 @@
                     <div id="monacoEditor" class="monaco-editor-container"></div>
                 </div>
 
-                <!-- Input/Output Section -->
-                <div class="io-panel">
-                    <!-- Input Section -->
-                    <div class="input-section glass-panel">
-                        <div class="panel-header">
-                            <div class="panel-title">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8h16v10z"/>
-                                </svg>
-                                Input
-                            </div>
-                            <button class="icon-btn" title="Clear Input" id="clearInputBtn">
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                                    <path d="M4 4L12 12M12 4L4 12" stroke="currentColor" stroke-width="2"/>
-                                </svg>
-                            </button>
+                <!-- Output Section -->
+                <div class="output-panel glass-panel">
+                    <div class="panel-header">
+                        <div class="panel-title">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                            </svg>
+                            Output
                         </div>
-                        <textarea id="inputArea" class="input-area" placeholder="Enter program input here (if needed)..."></textarea>
+                        <button class="icon-btn" title="Copy Output" id="copyOutput">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                <path d="M4 2h8v2H4V2zm-1 4h10v8H3V6zm1-1h8a1 1 0 011 1v8a1 1 0 01-1 1H4a1 1 0 01-1-1V6a1 1 0 011-1z"/>
+                            </svg>
+                        </button>
                     </div>
-
-                    <!-- Output Section -->
-                    <div class="output-section glass-panel">
-                        <div class="panel-header">
-                            <div class="panel-title">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
-                                </svg>
-                                Output
-                            </div>
-                            <button class="icon-btn" title="Copy Output" id="copyOutput">
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                                    <path d="M4 2h8v2H4V2zm-1 4h10v8H3V6zm1-1h8a1 1 0 011 1v8a1 1 0 01-1 1H4a1 1 0 01-1-1V6a1 1 0 011-1z"/>
-                                </svg>
-                            </button>
-                        </div>
-                        <div id="output" class="output-area">
-                            <div class="output-placeholder">
-                                <svg width="64" height="64" viewBox="0 0 64 64" fill="currentColor" opacity="0.3">
-                                    <path d="M32 8L56 20v24L32 56L8 44V20L32 8z"/>
-                                </svg>
-                                <p>Run your code to see the output</p>
-                            </div>
+                    <div id="output" class="output-area">
+                        <div class="output-placeholder">
+                            <svg width="64" height="64" viewBox="0 0 64 64" fill="currentColor" opacity="0.3">
+                                <path d="M32 8L56 20v24L32 56L8 44V20L32 8z"/>
+                            </svg>
+                            <p>Run your code to see the output</p>
                         </div>
                     </div>
                 </div>
@@ -151,6 +130,26 @@
                 <span>© 2025 CodeX</span>
             </div>
         </footer>
+    </div>
+
+    <!-- Input Modal -->
+    <div id="inputModal" class="input-modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8h16v10z"/>
+                    </svg>
+                    Program Input Required
+                </h3>
+                <p class="modal-description">Your program needs input. Enter values below (one per line):</p>
+            </div>
+            <textarea id="modalInputArea" class="modal-input" placeholder="Enter input here...&#10;Example:&#10;John&#10;25&#10;Delhi"></textarea>
+            <div class="modal-actions">
+                <button id="cancelInputBtn" class="btn-modal btn-cancel">Cancel</button>
+                <button id="submitInputBtn" class="btn-modal btn-submit">Run with Input</button>
+            </div>
+        </div>
     </div>
 
     <!-- Loading Overlay -->
