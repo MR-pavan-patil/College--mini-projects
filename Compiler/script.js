@@ -198,7 +198,8 @@ const copyOutput = document.getElementById('copyOutput');
 
 // Modal elements
 const inputModal = document.getElementById('inputModal');
-const modalInputArea = document.getElementById('modalInputArea');
+const inputFieldsContainer = document.getElementById('inputFieldsContainer');
+const modalDescription = document.getElementById('modalDescription');
 const submitInputBtn = document.getElementById('submitInputBtn');
 const cancelInputBtn = document.getElementById('cancelInputBtn');
 
@@ -283,11 +284,86 @@ function needsInput(code) {
     return inputPatterns.some(pattern => pattern.test(code));
 }
 
-// Show input modal
-function showInputModal() {
+// Extract input prompts from code
+function extractInputPrompts(code) {
+    const prompts = [];
+    
+    // Python: input("prompt")
+    const pythonMatches = code.matchAll(/input\s*\(\s*["']([^"']*)["']\s*\)/g);
+    for (const match of pythonMatches) {
+        prompts.push(match[1] || 'Enter value');
+    }
+    
+    // C/C++: printf/cout followed by scanf/cin
+    const cppPrintMatches = code.matchAll(/(?:printf|cout)\s*.*?["']([^"']*?)["'].*?(?:scanf|cin)/gs);
+    for (const match of cppPrintMatches) {
+        const prompt = match[1].replace(/\\n/g, '').trim();
+        if (prompt) prompts.push(prompt);
+    }
+    
+    // Java: System.out.print followed by scanner
+    const javaMatches = code.matchAll(/System\.out\.print.*?["']([^"']*?)["'].*?(?:nextLine|nextInt|next)\(\)/gs);
+    for (const match of javaMatches) {
+        const prompt = match[1].trim();
+        if (prompt) prompts.push(prompt);
+    }
+    
+    // If no prompts found, return generic ones based on input count
+    if (prompts.length === 0) {
+        const inputCount = (code.match(/input\(|scanf|cin\s*>>|nextLine|readLine|gets/gi) || []).length;
+        for (let i = 1; i <= Math.min(inputCount, 5); i++) {
+            prompts.push(`Input ${i}`);
+        }
+    }
+    
+    return prompts;
+}
+
+// Show input modal with dynamic fields
+function showInputModal(code) {
+    const prompts = extractInputPrompts(code);
+    
+    if (prompts.length === 0) {
+        prompts.push('Enter value');
+    }
+    
+    // Clear previous fields
+    inputFieldsContainer.innerHTML = '';
+    
+    // Create input fields for each prompt
+    prompts.forEach((prompt, index) => {
+        const fieldGroup = document.createElement('div');
+        fieldGroup.className = 'input-field-group';
+        
+        const label = document.createElement('label');
+        label.className = 'input-label';
+        label.textContent = prompt;
+        label.htmlFor = `input-${index}`;
+        
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.className = 'input-field';
+        input.id = `input-${index}`;
+        input.placeholder = 'Enter your answer...';
+        input.dataset.index = index;
+        
+        fieldGroup.appendChild(label);
+        fieldGroup.appendChild(input);
+        inputFieldsContainer.appendChild(fieldGroup);
+    });
+    
+    // Update description
+    modalDescription.textContent = prompts.length === 1 
+        ? 'Your program needs the following input:' 
+        : 'Your program needs the following inputs:';
+    
     inputModal.classList.remove('hidden');
-    modalInputArea.value = '';
-    modalInputArea.focus();
+    
+    // Focus first input
+    const firstInput = inputFieldsContainer.querySelector('.input-field');
+    if (firstInput) {
+        setTimeout(() => firstInput.focus(), 100);
+    }
 }
 
 // Hide input modal
@@ -306,7 +382,7 @@ async function runCode() {
 
     // Check if code needs input
     if (needsInput(code)) {
-        showInputModal();
+        showInputModal(code);
         return;
     }
 
@@ -444,7 +520,14 @@ copyOutput.addEventListener('click', copyOutputText);
 // Modal event listeners
 submitInputBtn.addEventListener('click', () => {
     const code = editor.getValue().trim();
-    const userInput = modalInputArea.value;
+    
+    // Collect all input values
+    const inputs = Array.from(inputFieldsContainer.querySelectorAll('.input-field'))
+        .map(input => input.value);
+    
+    // Join with newlines for stdin
+    const userInput = inputs.join('\n');
+    
     executeCode(code, userInput);
 });
 
@@ -461,9 +544,20 @@ document.addEventListener('keydown', (e) => {
 });
 
 // Submit on Ctrl+Enter in modal
-modalInputArea.addEventListener('keydown', (e) => {
+inputFieldsContainer.addEventListener('keydown', (e) => {
     if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
         submitInputBtn.click();
+    }
+    // Move to next field on Enter
+    if (e.key === 'Enter' && e.target.classList.contains('input-field')) {
+        e.preventDefault();
+        const allInputs = Array.from(inputFieldsContainer.querySelectorAll('.input-field'));
+        const currentIndex = parseInt(e.target.dataset.index);
+        if (currentIndex < allInputs.length - 1) {
+            allInputs[currentIndex + 1].focus();
+        } else {
+            submitInputBtn.click();
+        }
     }
 });
 
