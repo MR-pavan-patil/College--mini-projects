@@ -188,6 +188,7 @@ let currentLanguage = 'python';
 // DOM Elements
 const languageSelect = document.getElementById('languageSelect');
 const runBtn = document.getElementById('runBtn');
+const shareBtn = document.getElementById('shareBtn');
 const clearBtn = document.getElementById('clearBtn');
 const formatBtn = document.getElementById('formatBtn');
 const outputArea = document.getElementById('output');
@@ -202,6 +203,12 @@ const inputFieldsContainer = document.getElementById('inputFieldsContainer');
 const modalDescription = document.getElementById('modalDescription');
 const submitInputBtn = document.getElementById('submitInputBtn');
 const cancelInputBtn = document.getElementById('cancelInputBtn');
+
+// Share modal elements
+const shareModal = document.getElementById('shareModal');
+const shareLinkInput = document.getElementById('shareLinkInput');
+const copyLinkBtn = document.getElementById('copyLinkBtn');
+const closeShareBtn = document.getElementById('closeShareBtn');
 
 // Initialize Monaco Editor
 require.config({ paths: { vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs' } });
@@ -232,6 +239,9 @@ require(['vs/editor/editor.main'], function () {
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, function () {
         runCode();
     });
+    
+    // Load code from URL if present
+    loadCodeFromURL();
 });
 
 // Update status function
@@ -542,8 +552,6 @@ document.addEventListener('keydown', (e) => {
         hideInputModal();
     }
 });
-
-// Submit on Ctrl+Enter in modal
 inputFieldsContainer.addEventListener('keydown', (e) => {
     if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
         submitInputBtn.click();
@@ -565,3 +573,93 @@ inputFieldsContainer.addEventListener('keydown', (e) => {
 console.log('%c🚀 CodeX Professional IDE Ready!', 'color: #6366f1; font-size: 24px; font-weight: bold;');
 console.log('%c✨ Press Ctrl+Enter to run code', 'color: #8b5cf6; font-size: 14px;');
 console.log('%c💡 Input popup appears automatically when needed!', 'color: #10b981; font-size: 14px;');
+
+// ===== SHARE FEATURE FUNCTIONS =====
+
+// Compress code to base64
+function compressCode(code, language) {
+    const data = { code, lang: language };
+    const jsonStr = JSON.stringify(data);
+    return btoa(encodeURIComponent(jsonStr));
+}
+
+// Decompress code from base64
+function decompressCode(compressed) {
+    try {
+        const jsonStr = decodeURIComponent(atob(compressed));
+        return JSON.parse(jsonStr);
+    } catch (e) {
+        return null;
+    }
+}
+
+// Generate share link
+function generateShareLink() {
+    const code = editor.getValue();
+    const compressed = compressCode(code, currentLanguage);
+    const baseURL = window.location.origin + window.location.pathname;
+    return `${baseURL}?share=${compressed}`;
+}
+
+// Load code from URL
+function loadCodeFromURL() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const shareParam = urlParams.get('share');
+    
+    if (shareParam) {
+        const data = decompressCode(shareParam);
+        if (data && data.code && data.lang) {
+            currentLanguage = data.lang;
+            languageSelect.value = data.lang;
+            
+            if (editor) {
+                const config = languageConfigs[currentLanguage];
+                monaco.editor.setModelLanguage(editor.getModel(), config.monacoLang);
+                editor.setValue(data.code);
+            }
+            
+            updateStatus('Code loaded from share link!', 'success');
+            setTimeout(() => updateStatus('Ready', 'normal'), 3000);
+        }
+    }
+}
+
+// Share button handler
+shareBtn.addEventListener('click', () => {
+    const shareLink = generateShareLink();
+    shareLinkInput.value = shareLink;
+    shareModal.classList.remove('hidden');
+});
+
+// Copy link button
+copyLinkBtn.addEventListener('click', () => {
+    shareLinkInput.select();
+    navigator.clipboard.writeText(shareLinkInput.value)
+        .then(() => {
+            const originalText = copyLinkBtn.innerHTML;
+            copyLinkBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg> Copied!';
+            setTimeout(() => {
+                copyLinkBtn.innerHTML = originalText;
+            }, 2000);
+        })
+        .catch(err => {
+            console.error('Failed to copy:', err);
+        });
+});
+
+// Close share modal
+closeShareBtn.addEventListener('click', () => {
+    shareModal.classList.add('hidden');
+});
+
+// Close share modal on Escape
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        if (!shareModal.classList.contains('hidden')) {
+            shareModal.classList.add('hidden');
+        }
+        if (!inputModal.classList.contains('hidden')) {
+            hideInputModal();
+        }
+    }
+});

@@ -178,10 +178,20 @@ body {
 
 .select-wrapper {
     position: relative;
+    display: inline-block;
+}
+
+.select-icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #667eea;
 }
 
 .language-select {
-    padding: 12px 40px 12px 20px;
+    padding: 12px 45px 12px 20px;
     font-size: 15px;
     font-weight: 600;
     background: rgba(255, 255, 255, 0.95);
@@ -191,6 +201,7 @@ body {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     appearance: none;
     color: #1e293b;
+    min-width: 180px;
 }
 
 .language-select:hover {
@@ -231,6 +242,16 @@ body {
 
 .btn-run:active {
     transform: translateY(-1px);
+}
+
+.btn-share {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+}
+
+.btn-share:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
 }
 
 .btn-clear {
@@ -513,6 +534,77 @@ body {
     box-shadow: 0 8px 25px rgba(99, 102, 241, 0.5);
 }
 
+/* Share Modal Styles */
+.share-modal-content {
+    max-width: 550px;
+}
+
+.share-link-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.share-link-input {
+    flex: 1;
+    padding: 14px 16px;
+    background: rgba(15, 23, 42, 0.6);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    color: #e2e8f0;
+    transition: all 0.3s ease;
+}
+
+.share-link-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+.btn-copy-link {
+    padding: 12px 20px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.btn-copy-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+}
+
+.share-info {
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.share-info-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 14px;
+}
+
+.share-info-item svg {
+    flex-shrink: 0;
+    color: #10b981;
+}
+
 /* Footer */
 .footer {
     background: rgba(255, 255, 255, 0.1);
@@ -684,5 +776,14 @@ body {
     
     .btn-modal {
         width: 100%;
+    }
+    
+    .share-link-container {
+        flex-direction: column;
+    }
+    
+    .btn-copy-link {
+        width: 100%;
+        justify-content: center;
     }
 }

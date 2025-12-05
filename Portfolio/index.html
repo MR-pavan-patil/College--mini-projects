@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Portfolio</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- AOS Animate On Scroll CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">Rahul <span style="color: black; font-weight: 600;">Jagdale</span></div>
+            <ul class="nav-links">
+                <li><a href="#home" style="padding-left: 25px;" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <!-- <li><a href="#projects" class="nav-link">Projects</a></li> -->
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="navbar-controls">
+                
+                <button id="hamburger" aria-label="Open menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+    <button id="scrollToTop" aria-label="Scroll to top"><i class="fas fa-chevron-up"></i></button>
+    <main>
+        <section id="home" class="hero" data-aos="fade-up">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1>Rahul <span style="color: black; font-weight: 600;">Jagdale</span></h1>
+        <h2>Full Stack Web Developer</h2>
+        <p class="tagline">Freelance &amp; remote-ready developer—delivering robust web apps for startups, agencies, and businesses.</p>
+        <a href="#about" class="btn know-more-btn">Know More <i class="fas fa-arrow-down"></i></a>
+        <div class="hero-socials">
+            <a href="mailto:rahulmj359@gmail.com" target="_blank" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            <a href="https://www.linkedin.com/in/rahul-jagdale-14848332b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="https://github.com/rahul-jagdale" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        </div>
+        <!-- <a href="#projects" class="btn hero-btn">View My Work</a> -->
+    </div>
+</section>
+        <section id="about" class="about section" data-aos="fade-up">
+    <h2 class="about-title">About me <span class="about-underline"></span></h2>
+    <div class="about-content">
+        <div class="about-img">
+            <img src="Rahul.jpeg" alt="Profile picture of Rahul Jagdale" />
+        </div>
+        <div class="about-text">
+            <!-- <h3 class="about-heading">I'm <span class="about-name">Rahul Jagdale</h3> -->
+            <p class="about-desc">
+                Hi, I'm  <span class="about-name">Rahul Jagdale</span> a passionate software developer specializing in modern, scalable web applications. I help startups, agencies, and businesses turn ideas into production-ready products. My recent work includes SaaS dashboards, real-time collaboration tools, and custom business platforms. I thrive on clean code, great UX, and delivering real value for clients.
+            </p>
+            <ul class="about-extra">
+                <li><i class="fas fa-user-graduate"></i> <strong>Qualification:</strong>BCA (Bachelors of computer Applications), Bidar University</li>
+                <li><i class="fas fa-trophy"></i> <strong>Professional Experience:</strong>Design and Developed multiple websites using HTML, CSS, JavaScript, Bootstrap, and Modern UI libraries </li>
+                <li><i class="fas fa-heart"></i> <strong>Hobbies:</strong>Playing online Video Games, Listening to Hip Hop Music</li>
+            </ul>
+            <!-- <a href="https://drive.google.com/your-resume-link" class="btn about-btn" download>Download CV <i class="fas fa-download"></i></a> -->
+        </div>
+    </div>
+</section>
+<section id="skills" class="skills section" data-aos="fade-up">
+    <h2>Skills</h2>
+    <p class="skills-desc">Core technologies I use for building modern, responsive websites:</p>
+    <div class="skills-list">
+    <div class="skill"><i class="fab fa-html5" style="color:#e34c26;"></i><span>HTML5</span></div>
+    <div class="skill"><i class="fab fa-css3-alt" style="color:#1572b6;"></i><span>CSS3</span></div>
+    <div class="skill"><i class="fab fa-js-square" style="color:#f7df1e;"></i><span>JavaScript</span></div>
+    <div class="skill"><i class="fab fa-bootstrap" style="color:#7952b3;"></i><span>Bootstrap</span></div>
+</div>
+</section>
+
+        <section id="contact" class="contact section" data-aos="fade-up">
+    <h2>Contact</h2>
+    <div class="contact-wrapper">
+        <form id="contact-form" class="contact-form"  action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="e77f7794-4e3a-45da-9fb3-7c1aeb4c9f0d">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required placeholder="Your Name">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required placeholder="your@email.com">
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="4" required placeholder="Your message..."></textarea>
+            </div>
+            <button type="submit" class="btn contact-btn">Send Message</button>
+            <div id="form-msg" class="form-msg"></div>
+        </form>
+        <div class="contact-info">
+    <div><i class="fas fa-envelope"></i> <a href="mailto:rahulmj359@gmail.com">rahulmj359@gmail.com</a></div>
+    <div><i class="fas fa-map-marker-alt"></i> Bidar,Karnataka,India </div>
+    <div><i class="fas fa-globe"></i> <a href="https://rahullinktree.netlify.app/" target="_blank">rahuljagdale.com</a></div>
+    <div><i class="fas fa-phone"></i> <a href="tel:+919980970548">+91 9980970548</a></div>
+</div>
+    </div>
+    <div class="contact-socials">
+        <a href="mailto:rahulmj359@gmail.com" target="_blank" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        <a href="https://www.linkedin.com/in/rahul-jagdale-14848332b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="https://github.com/Rahul-jagdale" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+    </div>
+</section>
+</main>
+<footer>
+    <div class="footer-content">
+        <p>&copy; 2025 Rahul Jagdale. All rights reserved.</p>
+    </div>
+</footer>
+    <!-- AOS Animate On Scroll JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="script.js"></script>
+    <script>AOS.init({ once: true, duration: 800 });</script>
+</body>
+</html>
