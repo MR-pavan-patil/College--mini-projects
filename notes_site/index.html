@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Notes Sharing Platform</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- Modern Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <!-- Brand Logo -->
+            <a href="index.html" class="nav-brand">
+                <span class="nav-icon">📚</span>
+                <span>College Notes</span>
+            </a>
+
+            <!-- Hamburger Menu (Mobile) -->
+            <button class="nav-hamburger" id="navHamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+            <!-- Navigation Menu -->
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link active">
+                        <span>🏠</span>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="upload.html" class="nav-link nav-link-primary">
+                        <span>📤</span>
+                        <span>Upload Notes</span>
+                    </a>
+                </li>
+                <li class="nav-item nav-user">
+                    <div class="nav-user-btn">
+                        <div class="nav-user-avatar" id="userAvatar">U</div>
+                        <span id="userName">User</span>
+                        <span>▼</span>
+                    </div>
+                    <div class="nav-dropdown">
+                        <a href="#" class="nav-dropdown-item">
+                            <span>👤</span>
+                            <span>Profile</span>
+                        </a>
+                        <a href="#" class="nav-dropdown-item" id="logoutBtn">
+                            <span>🚪</span>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Stats Banner -->
+    <div class="stats-banner">
+        <div class="stats-container">
+            <div class="stat-card">
+                <span class="stat-icon">📚</span>
+                <h3 id="totalNotes">0</h3>
+                <p>Total Notes</p>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">🎓</span>
+                <h3 id="totalBranches">0</h3>
+                <p>Courses</p>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">📤</span>
+                <h3 id="userUploads">0</h3>
+                <p>Your Uploads</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Mobile Filter Toggle Button (Shows only on mobile) -->
+        <button id="mobileFilterToggle" class="mobile-filter-btn">
+      🔍 Show Filters
+    </button>
+
+        <!-- Filter Sidebar -->
+        <aside class="filter-sidebar">
+            <div class="filter-header">
+                <h3>🔍 Filters</h3>
+                <div class="filter-header-buttons">
+                    <button id="closeSidebarBtn" class="btn-close-sidebar">✖</button>
+                    <button id="clearFilters" class="btn-clear">Clear All</button>
+                </div>
+            </div>
+
+            <!-- Search Box -->
+            <div class="filter-section">
+                <label>Search Notes</label>
+                <input type="text" id="searchInput" placeholder="Search by title or subject..." class="search-input">
+            </div>
+
+            <!-- Course Filter -->
+            <div class="filter-section">
+                <label>Course/Branch</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-label">
+            <input type="checkbox" class="course-filter" value="BCA">
+            <span>BCA</span>
+          </label>
+                    <label class="checkbox-label">
+            <input type="checkbox" class="course-filter" value="BCom">
+            <span>BCom</span>
+          </label>
+                    <label class="checkbox-label">
+            <input type="checkbox" class="course-filter" value="BA">
+            <span>BA</span>
+          </label>
+                    <label class="checkbox-label">
+            <input type="checkbox" class="course-filter" value="BSc">
+            <span>BSc</span>
+          </label>
+                    <label class="checkbox-label">
+            <input type="checkbox" class="course-filter" value="BBA">
+            <span>BBA</span>
+          </label>
+                    <label class="checkbox-label">
+            <input type="checkbox" class="course-filter" value="MBA">
+            <span>MBA</span>
+          </label>
+                </div>
+            </div>
+
+            <!-- Semester Filter -->
+            <div class="filter-section">
+                <label>Semester</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-label">
+            <input type="checkbox" class="semester-filter" value="1">
+            <span>Semester 1</span>
+          </label>
+                    <label class="checkbox-label">
+            <input type="checkbox" class="semester-filter" value="2">
+            <span>Semester 2</span>
+          </label>
+                    <label class="checkbox-label">
+            <input type="checkbox" class="semester-filter" value="3">
+            <span>Semester 3</span>
+          </label>
+                    <label class="checkbox-label">
+            <input type="checkbox" class="semester-filter" value="4">
+            <span>Semester 4</span>
+          </label>
+                    <label class="checkbox-label">
+            <input type="checkbox" class="semester-filter" value="5">
+            <span>Semester 5</span>
+          </label>
+                    <label class="checkbox-label">
+            <input type="checkbox" class="semester-filter" value="6">
+            <span>Semester 6</span>
+          </label>
+                    <label class="checkbox-label">
+            <input type="checkbox" class="semester-filter" value="7">
+            <span>Semester 7</span>
+          </label>
+                    <label class="checkbox-label">
+            <input type="checkbox" class="semester-filter" value="8">
+            <span>Semester 8</span>
+          </label>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Notes Container -->
+        <div class="notes-container">
+            <!-- Active Filters Display -->
+            <div id="activeFilters" class="active-filters" style="display: none;">
+                <span class="filter-label">Active Filters:</span>
+                <div id="filterChips"></div>
+            </div>
+
+            <!-- Results Header -->
+            <div class="results-header">
+                <h2 id="resultsTitle">All Notes</h2>
+                <p id="resultsCount">Loading...</p>
+            </div>
+
+            <!-- Loading Indicator -->
+            <div id="loadingIndicator" class="loading">
+                <p>⏳ Loading notes...</p>
+            </div>
+
+            <!-- Notes Grid -->
+            <div id="notesGrid" class="notes-grid">
+                <!-- Cards will be dynamically added here -->
+            </div>
+
+            <!-- Empty State -->
+            <div id="emptyState" class="empty-state" style="display: none;">
+                <p>📚 No notes found</p>
+                <p>Try adjusting your filters or be the first to upload!</p>
+                <a href="upload.html" class="btn-primary">Upload Notes</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Made with ❤️ by Students, for Students</p>
+    </footer>
+
+    <!-- Load Supabase JS from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Load our JavaScript files -->
+    <script src="js/supabaseClient.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/notes-list.js"></script>
+</body>
+
+</html>

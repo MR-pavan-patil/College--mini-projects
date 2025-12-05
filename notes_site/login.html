@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - College Notes Platform</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="auth-page">
+        <!-- Left Side - Info Section -->
+        <div class="auth-info">
+            <div class="auth-info-content">
+                <div class="auth-logo">
+                    <span class="auth-logo-icon">📚</span>
+                    <h1>College Notes Platform</h1>
+                </div>
+
+                <div class="auth-features">
+                    <h2>Share Knowledge, Build Community</h2>
+                    <p class="auth-subtitle">Join thousands of students sharing and accessing quality study materials</p>
+
+                    <div class="feature-list">
+                        <div class="feature-item">
+                            <span class="feature-icon">📤</span>
+                            <div class="feature-text">
+                                <h3>Upload & Share</h3>
+                                <p>Share your notes with fellow students and help them succeed</p>
+                            </div>
+                        </div>
+
+                        <div class="feature-item">
+                            <span class="feature-icon">🔍</span>
+                            <div class="feature-text">
+                                <h3>Smart Search</h3>
+                                <p>Find notes by course, semester, subject, and unit instantly</p>
+                            </div>
+                        </div>
+
+                        <div class="feature-item">
+                            <span class="feature-icon">📥</span>
+                            <div class="feature-text">
+                                <h3>Free Access</h3>
+                                <p>Download unlimited notes completely free, anytime, anywhere</p>
+                            </div>
+                        </div>
+
+                        <div class="feature-item">
+                            <span class="feature-icon">🎓</span>
+                            <div class="feature-text">
+                                <h3>Quality Content</h3>
+                                <p>Access verified notes from top students across all subjects</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side - Login/Signup Form -->
+        <div class="auth-form-section">
+            <div class="auth-box">
+                <!-- Tab Buttons -->
+                <div class="tab-buttons">
+                    <button id="loginTabBtn" class="tab-btn active">
+            <span class="tab-icon">🔓</span>
+            <span>Login</span>
+          </button>
+                    <button id="signupTabBtn" class="tab-btn">
+            <span class="tab-icon">✨</span>
+            <span>Sign Up</span>
+          </button>
+                </div>
+
+                <!-- Login Form -->
+                <form id="loginForm" class="auth-form">
+                    <div class="form-header">
+                        <h2>Welcome Back!</h2>
+                        <p>Enter your credentials to access your account</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loginEmail">
+              <span class="label-icon">📧</span>
+              Email Address
+            </label>
+                        <input type="email" id="loginEmail" placeholder="your.email@example.com" required autocomplete="email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loginPassword">
+              <span class="label-icon">🔒</span>
+              Password
+            </label>
+                        <div class="password-input">
+                            <input type="password" id="loginPassword" placeholder="Enter your password" required autocomplete="current-password">
+                            <button type="button" class="toggle-password" id="toggleLoginPassword">
+                <span>👁️</span>
+              </button>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-submit">
+            <span>Login to Account</span>
+            <span class="btn-arrow">→</span>
+          </button>
+
+                    <p class="message" id="loginMessage"></p>
+
+                    <div class="form-footer">
+                        <p>Don't have an account? <a href="#" id="switchToSignup">Create one</a></p>
+                    </div>
+                </form>
+
+                <!-- Signup Form (Hidden by default) -->
+                <form id="signupForm" class="auth-form" style="display: none;">
+                    <div class="form-header">
+                        <h2>Create Account</h2>
+                        <p>Join our community of students today!</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signupName">
+              <span class="label-icon">👤</span>
+              Full Name
+            </label>
+                        <input type="text" id="signupName" placeholder="John Doe" required autocomplete="name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signupEmail">
+              <span class="label-icon">📧</span>
+              Email Address
+            </label>
+                        <input type="email" id="signupEmail" placeholder="your.email@example.com" required autocomplete="email">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="signupBranch">
+                <span class="label-icon">🎓</span>
+                Course
+              </label>
+                            <select id="signupBranch" required>
+                <option value="">Select</option>
+                <option value="BCA">BCA</option>
+                <option value="BCom">BCom</option>
+                <option value="BA">BA</option>
+                <option value="BSc">BSc</option>
+                <option value="BBA">BBA</option>
+                <option value="MBA">MBA</option>
+              </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="signupSemester">
+                <span class="label-icon">📅</span>
+                Semester
+              </label>
+                            <select id="signupSemester" required>
+                <option value="">Select</option>
+                <option value="1">Sem 1</option>
+                <option value="2">Sem 2</option>
+                <option value="3">Sem 3</option>
+                <option value="4">Sem 4</option>
+                <option value="5">Sem 5</option>
+                <option value="6">Sem 6</option>
+                <option value="7">Sem 7</option>
+                <option value="8">Sem 8</option>
+              </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signupPassword">
+              <span class="label-icon">🔒</span>
+              Password
+            </label>
+                        <div class="password-input">
+                            <input type="password" id="signupPassword" placeholder="Minimum 6 characters" required minlength="6" autocomplete="new-password">
+                            <button type="button" class="toggle-password" id="toggleSignupPassword">
+                <span>👁️</span>
+              </button>
+                        </div>
+                        <small class="password-hint">Use at least 6 characters with letters and numbers</small>
+                    </div>
+
+                    <div class="form-checkbox">
+                        <input type="checkbox" id="agreeTerms" required>
+                        <label for="agreeTerms">
+              I agree to the Terms of Service and Privacy Policy
+            </label>
+                    </div>
+
+                    <button type="submit" class="btn-submit">
+            <span>Create Account</span>
+            <span class="btn-arrow">→</span>
+          </button>
+
+                    <p class="message" id="signupMessage"></p>
+
+                    <div class="form-footer">
+                        <p>Already have an account? <a href="#" id="switchToLogin">Login here</a></p>
+                    </div>
+                </form>
+
+                <!-- Back to Home Link -->
+                <div class="back-link">
+                    <a href="index.html">← Back to Notes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load Supabase JS from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Load our JavaScript files -->
+    <script src="js/supabaseClient.js"></script>
+    <script src="js/auth.js"></script>
+
+    <script>
+        // Tab switching logic
+        const loginTab = document.getElementById('loginTabBtn');
+        const signupTab = document.getElementById('signupTabBtn');
+        const loginForm = document.getElementById('loginForm');
+        const signupForm = document.getElementById('signupForm');
+        const switchToSignup = document.getElementById('switchToSignup');
+        const switchToLogin = document.getElementById('switchToLogin');
+
+        function showLogin() {
+            loginTab.classList.add('active');
+            signupTab.classList.remove('active');
+            loginForm.style.display = 'block';
+            signupForm.style.display = 'none';
+        }
+
+        function showSignup() {
+            signupTab.classList.add('active');
+            loginTab.classList.remove('active');
+            signupForm.style.display = 'block';
+            loginForm.style.display = 'none';
+        }
+
+        loginTab.addEventListener('click', showLogin);
+        signupTab.addEventListener('click', showSignup);
+        switchToSignup.addEventListener('click', function(e) {
+            e.preventDefault();
+            showSignup();
+        });
+        switchToLogin.addEventListener('click', function(e) {
+            e.preventDefault();
+            showLogin();
+        });
+
+        // Password toggle
+        document.getElementById('toggleLoginPassword').addEventListener('click', function() {
+            const input = document.getElementById('loginPassword');
+            const icon = this.querySelector('span');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.textContent = '🙈';
+            } else {
+                input.type = 'password';
+                icon.textContent = '👁️';
+            }
+        });
+
+        document.getElementById('toggleSignupPassword').addEventListener('click', function() {
+            const input = document.getElementById('signupPassword');
+            const icon = this.querySelector('span');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.textContent = '🙈';
+            } else {
+                input.type = 'password';
+                icon.textContent = '👁️';
+            }
+        });
+    </script>
+</body>
+
+</html>
