@@ -17,7 +17,7 @@ const projects = [{
         icon: '📚',
         status: 'live',
         tech: ['HTMl', 'CSS', 'JS', 'Supabase'],
-        path: './projects/notes-sharing/index.html',
+        path: '../notes_site/index.html',
         demoUrl: '#',
         githubUrl: '#'
     },
@@ -29,7 +29,7 @@ const projects = [{
         icon: '💬',
         status: 'live',
         tech: ['HTMl', 'CSS', 'JS', 'firebase'],
-        path: '../web-chat-app/index.html',
+        path: '../web_chat/index.html',
         demoUrl: '#',
         githubUrl: '#'
     },
