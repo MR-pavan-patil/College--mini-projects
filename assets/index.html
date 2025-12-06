@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>DevSpace by Patil & Jagdale</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+
+    <!-- AOS Animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" integrity="sha512-pvXcVt8QX2Gk5a6W1HDnB6SHtB6zG0rZ5hCtsi7S1qz1BQyXn2p4CwQDx7d9UdnJb5tFZqkOZC2E2p7MVrY5nw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+
+<body>
+    <!-- ===== HEADER ===== -->
+    <header class="main-header">
+        <div class="logo">DevSpace</div>
+
+        <nav class="nav-links">
+            <a href="#hero" class="nav-link">Home</a>
+            <a href="#tools" class="nav-link">Tools</a>
+            <button class="nav-cta" onclick="alert('Ye sirf demo button hai bro 😉\nTools script.js me array se add karna.')">
+        <i class="fa-solid fa-plus"></i>
+        Add New Tool
+      </button>
+        </nav>
+    </header>
+
+    <!-- ===== HERO SECTION ===== -->
+    <section id="hero" class="hero">
+        <div class="hero-content" data-aos="fade-up">
+            <p class="hero-badge">
+                <i class="fa-solid fa-bolt"></i> Made by Patil & Jagdale
+            </p>
+            <h1>All My College Projects in One Place</h1>
+            <p class="hero-subtitle">
+                Notes, Chat, Compiler & AI Experiments — sab ek hi hub se access karo. Ek click, saare site ready.
+            </p>
+
+            <div class="hero-actions">
+                <button class="btn-primary" onclick="scrollToSection('tools')">
+          <i class="fa-solid fa-grid-2"></i>
+          View Tools
+        </button>
+                <button class="btn-ghost" onclick="scrollToSection('tools')">
+          <i class="fa-solid fa-rocket"></i>
+          Explore Projects
+        </button>
+            </div>
+        </div>
+
+        <div class="hero-visual" data-aos="zoom-in">
+            <div class="orb orb-main"></div>
+            <div class="orb orb-small"></div>
+            <div class="hero-card">
+                <i class="fa-solid fa-laptop-code"></i>
+                <div>
+                    <h3>Developer Dashboard</h3>
+                    <p>Central place to manage all mini projects. of Patil & Jagdale</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TOOLS SECTION ===== -->
+    <section id="tools" class="tools-section">
+        <div class="tools-header" data-aos="fade-up">
+            <div>
+                <h2>My Tools</h2>
+                <p class="tools-subtitle">
+                    Sabhi mini projects ek jagah – search karo, filter karo, open karo.
+                </p>
+            </div>
+
+            <div class="tools-filters">
+                <div class="search-wrapper">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="searchInput" placeholder="Search tools..." />
+                </div>
+                <select id="categoryFilter">
+          <option value="All">All Categories</option>
+          <option value="Study">Study</option>
+          <option value="Communication">Communication</option>
+          <option value="Coding">Coding</option>
+          <option value="AI">AI</option>
+          <option value="Misc">Misc</option>
+        </select>
+            </div>
+        </div>
+
+        <div id="toolsGrid" class="tools-grid" data-aos="fade-up" data-aos-delay="150">
+            <!-- Cards will be injected by script.js -->
+        </div>
+
+        <p id="noResults" class="no-results" style="display: none;">
+            😅 Koi tool match nahi hua. Search / filter thoda change karke dekho.
+        </p>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="main-footer">
+        <p>© 2025 Patil | All Rights Reserved</p>
+    </footer>
+
+    <!-- AOS JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" integrity="sha512-A7AYk1fFjftZo6H67VJjWm+6UjaHgIdgXmRkqS9hJ5qUQfFp7EuC2WQK5R8qfKxEiUVVYF5fC6pH+0P5Q5xNkg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="assets/js/script.js"></script>
+
+    <script>
+        // Init AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+        });
+    </script>
+</body>
+
+</html>
