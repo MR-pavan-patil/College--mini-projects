@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎓 College Hub - Connect with Juniors</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Auth Screen -->
+    <div id="authScreen" class="auth-container">
+        <div class="auth-box">
+            <div class="auth-logo">🎓</div>
+            <h1 class="auth-title">College Hub</h1>
+            <p class="auth-subtitle">Connect with your college juniors & seniors</p>
+
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-tab="login">Login</button>
+                <button class="auth-tab" data-tab="signup">Join Now</button>
+            </div>
+
+            <!-- Login Form -->
+            <div id="loginForm" class="auth-form active">
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="loginEmail" placeholder="College Email" class="auth-input">
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="loginPassword" placeholder="Password" class="auth-input">
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="loginUsername" placeholder="Your Name" class="auth-input">
+                </div>
+                <button id="loginBtn" class="auth-btn">
+                    <i class="fas fa-sign-in-alt"></i> Login to College Hub
+                </button>
+            </div>
+
+            <!-- Signup Form -->
+            <div id="signupForm" class="auth-form">
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="signupUsername" placeholder="Full Name" class="auth-input">
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="signupEmail" placeholder="College Email ID" class="auth-input">
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="signupPassword" placeholder="Create Password (min 6 chars)" class="auth-input">
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-graduation-cap"></i>
+                    <select id="signupYear" class="auth-input">
+                        <option value="">Select Your Year</option>
+                        <option value="1st Year">1st Year</option>
+                        <option value="2nd Year">2nd Year</option>
+                        <option value="3rd Year">3rd Year</option>
+                        <option value="Final Year">Final Year</option>
+                    </select>
+                </div>
+                <button id="signupBtn" class="auth-btn">
+                    <i class="fas fa-user-plus"></i> Join College Hub
+                </button>
+            </div>
+
+            <div class="auth-status" id="authStatus"></div>
+
+            <div class="auth-note">
+                <i class="fas fa-shield-alt"></i>
+                <span>Secure college community platform</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Screen -->
+    <div id="chatScreen" class="chat-container" style="display: none;">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="app-logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>College Hub</span>
+                </div>
+                <button class="sidebar-toggle" id="sidebarClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <!-- User Profile -->
+            <div class="user-profile">
+                <div class="profile-avatar">
+                    <img id="sidebarAvatar" src="" alt="avatar">
+                    <span class="online-badge"></span>
+                </div>
+                <div class="profile-info">
+                    <h3 id="sidebarUsername">Student</h3>
+                    <p class="profile-status" id="userYear">1st Year</p>
+                </div>
+                <button class="profile-settings" id="editProfileBtn">
+                    <i class="fas fa-edit"></i>
+                </button>
+            </div>
+
+            <!-- Chat Type Tabs -->
+            <div class="chat-type-tabs">
+                <button class="chat-type-tab active" data-type="rooms">
+                    <i class="fas fa-users"></i> Year Groups
+                </button>
+                <button class="chat-type-tab" data-type="dms">
+                    <i class="fas fa-user-friends"></i> Direct Chats
+                    <span class="dm-badge" id="dmBadge" style="display: none;">0</span>
+                </button>
+            </div>
+
+            <!-- Year Groups Section -->
+            <div class="sidebar-section" id="roomsSection">
+                <h4 class="section-title">
+                    <i class="fas fa-graduation-cap"></i> Year Groups
+                </h4>
+                <div class="rooms-list">
+                    <button class="room-item active" data-room="1st-year">
+                        <i class="fas fa-user-graduate"></i>
+                        <span>1st Year</span>
+                    </button>
+                    <button class="room-item" data-room="2nd-year">
+                        <i class="fas fa-book-reader"></i>
+                        <span>2nd Year</span>
+                    </button>
+                    <button class="room-item" data-room="3rd-year">
+                        <i class="fas fa-laptop-code"></i>
+                        <span>3rd Year</span>
+                    </button>
+                    <button class="room-item" data-room="final-year">
+                        <i class="fas fa-user-tie"></i>
+                        <span>Final Year</span>
+                    </button>
+                </div>
+
+                <h4 class="section-title" style="margin-top: 20px;">
+                    <i class="fas fa-comments"></i> Common Spaces
+                </h4>
+                <div class="rooms-list">
+                    <button class="room-item" data-room="general">
+                        <i class="fas fa-comments"></i>
+                        <span>General</span>
+                    </button>
+                    <button class="room-item" data-room="study-group">
+                        <i class="fas fa-book"></i>
+                        <span>Study Group</span>
+                    </button>
+                    <button class="room-item" data-room="placement-prep">
+                        <i class="fas fa-briefcase"></i>
+                        <span>Placement Prep</span>
+                    </button>
+                    <button class="room-item" data-room="sports">
+                        <i class="fas fa-futbol"></i>
+                        <span>Sports & Events</span>
+                    </button>
+                    <button class="room-item" data-room="tech-talks">
+                        <i class="fas fa-code"></i>
+                        <span>Tech Talks</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- DMs Section -->
+            <div class="sidebar-section" id="dmsSection" style="display: none;">
+                <h4 class="section-title">
+                    <i class="fas fa-user-friends"></i> Direct Messages
+                </h4>
+                <div id="dmsList" class="dms-list">
+                    <!-- Dynamic DMs -->
+                </div>
+            </div>
+
+            <!-- Online Students -->
+            <div class="sidebar-section">
+                <h4 class="section-title">
+                    <i class="fas fa-users"></i> Online Students
+                    <span class="online-count" id="onlineCount">0</span>
+                </h4>
+                <div id="onlineUsers" class="online-users-list">
+                    <!-- Dynamic users -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Chat Area -->
+        <div class="main-content">
+            <!-- Chat Header -->
+            <div class="chat-header">
+                <div class="header-left">
+                    <button class="mobile-menu-btn" id="mobileMenuBtn">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="room-info">
+                        <h2 id="currentRoomName">
+                            <i class="fas fa-user-graduate"></i> 1st Year
+                        </h2>
+                        <p id="roomDescription">Connect with 1st year students</p>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <button class="header-btn" id="searchBtn" title="Search Messages">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button class="header-btn" id="themeToggle" title="Toggle Theme">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button class="header-btn" id="notificationToggle" title="Toggle Notifications">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                    <div class="user-menu">
+                        <img id="headerAvatar" src="" alt="avatar" class="header-avatar">
+                        <div class="user-dropdown">
+                            <button id="profileBtn">
+                                <i class="fas fa-user"></i> My Profile
+                            </button>
+                            <button id="logoutBtn">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="search-bar" id="searchBar" style="display: none;">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search messages in this group...">
+                <button id="closeSearch">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <!-- Reply Preview -->
+            <div class="reply-preview" id="replyPreview" style="display: none;">
+                <div class="reply-preview-content">
+                    <i class="fas fa-reply"></i>
+                    <div class="reply-text">
+                        <strong id="replyToUser"></strong>
+                        <p id="replyToMessage"></p>
+                    </div>
+                </div>
+                <button id="cancelReply">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <!-- Messages Container -->
+            <div id="messagesContainer" class="messages-container">
+                <div class="welcome-message">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h3>Welcome to College Hub! 🎓</h3>
+                    <p>Connect with your juniors and seniors. Share notes, ask doubts, and collaborate!</p>
+                </div>
+            </div>
+
+            <!-- Typing Indicator -->
+            <div id="typingIndicator" class="typing-indicator" style="display: none;">
+                <div class="typing-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <span id="typingText">Someone is typing...</span>
+            </div>
+
+            <!-- Message Input Area -->
+            <div class="input-container">
+                <div class="input-actions">
+                    <button class="input-btn" id="emojiBtn" title="Add Emoji">
+                        <i class="fas fa-smile"></i>
+                    </button>
+                    <button class="input-btn" id="fileBtn" title="Share File/Image">
+                        <i class="fas fa-paperclip"></i>
+                    </button>
+                    <input type="file" id="fileInput" accept="image/*,.pdf,.doc,.docx" style="display: none;">
+                </div>
+                <div class="message-input-wrapper">
+                    <textarea id="messageInput" placeholder="Type your message... (Press Enter to send)" rows="1" maxlength="1000"></textarea>
+                    <div class="char-counter">
+                        <span id="charCount">0</span>/1000
+                    </div>
+                </div>
+                <button class="send-btn" id="sendBtn" title="Send Message">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+
+            <!-- Emoji Picker - EXPANDED -->
+            <div class="emoji-picker" id="emojiPicker" style="display: none;">
+                <div class="emoji-header">
+                    <span>Choose an emoji</span>
+                    <button id="closeEmoji">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="emoji-categories">
+                    <button class="emoji-cat active" data-category="smileys">😀</button>
+                    <button class="emoji-cat" data-category="gestures">👋</button>
+                    <button class="emoji-cat" data-category="hearts">❤️</button>
+                    <button class="emoji-cat" data-category="objects">⚽</button>
+                    <button class="emoji-cat" data-category="symbols">✨</button>
+                </div>
+                <div class="emoji-grid" id="emojiGrid">
+                    <!-- Smileys & Emotions (100+) -->
+                    😀 😃 😄 😁 😆 😅 😂 🤣 😊 😇 🙂 🙃 😉 😌 😍 🥰 😘 😗 😙 😚 😋 😛 😝 😜 🤪 🤨 🧐 🤓 😎 🤩 🥳 😏 😒 😞 😔 😟 😕 🙁 ☹️ 😣 😖 😫 😩 🥺 😢 😭 😤 😠 😡 🤬 🤯 😳 🥵 🥶 😱 😨 😰 😥 😓 🤗 🤔 🤭 🤫 🤥 😶 😐 😑 😬 🙄 😯 😦 😧 😮 😲 🥱 😴 🤤 😪 😵 🤐 🥴 🤢 🤮 🤧
+                    😷 🤒 🤕 🤑 🤠 😈 👿 👹 👺 🤡 💩 👻 💀 ☠️ 👽 👾
+                </div>
+            </div>
+
+            <!-- Reaction Picker -->
+            <div class="reaction-picker" id="reactionPicker" style="display: none;">
+                <button class="reaction-btn" data-reaction="❤️">❤️</button>
+                <button class="reaction-btn" data-reaction="👍">👍</button>
+                <button class="reaction-btn" data-reaction="😂">😂</button>
+                <button class="reaction-btn" data-reaction="🔥">🔥</button>
+                <button class="reaction-btn" data-reaction="💯">💯</button>
+                <button class="reaction-btn" data-reaction="🎓">🎓</button>
+                <button class="reaction-btn" data-reaction="📚">📚</button>
+                <button class="reaction-btn" data-reaction="✨">✨</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div class="modal" id="profileModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-user-edit"></i> Edit Your Profile</h3>
+                <button class="modal-close" id="closeProfileModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="profile-edit-avatar">
+                    <img id="profileModalAvatar" src="" alt="avatar">
+                    <button class="avatar-upload-btn">
+                        <i class="fas fa-camera"></i>
+                    </button>
+                </div>
+                <div class="input-group">
+                    <label>Full Name</label>
+                    <input type="text" id="profileNameInput" class="modal-input" placeholder="Your full name">
+                </div>
+                <div class="input-group">
+                    <label>Your Year</label>
+                    <select id="profileYearSelect" class="modal-input">
+                        <option value="1st Year">1st Year</option>
+                        <option value="2nd Year">2nd Year</option>
+                        <option value="3rd Year">3rd Year</option>
+                        <option value="Final Year">Final Year</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Branch/Department</label>
+                    <input type="text" id="profileBranchInput" class="modal-input" placeholder="e.g., Computer Science">
+                </div>
+                <div class="input-group">
+                    <label>Bio</label>
+                    <textarea id="profileBioInput" class="modal-input" rows="3" placeholder="Tell something about yourself..."></textarea>
+                </div>
+                <div class="input-group">
+                    <label>Status</label>
+                    <select id="profileStatusSelect" class="modal-input">
+                        <option value="online">🟢 Available</option>
+                        <option value="away">🟡 Away</option>
+                        <option value="busy">🔴 Busy (Studying)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn modal-btn-secondary" id="cancelProfileEdit">Cancel</button>
+                <button class="modal-btn modal-btn-primary" id="saveProfile">
+                    <i class="fas fa-save"></i> Save Changes
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Sound -->
+    <audio id="notificationSound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTcIGWi77eefTRAMUKfj8LZjHAY4kdfy" type="audio/wav">
+    </audio>
+
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module" src="app.js"></script>
+</body>
+
+</html>
