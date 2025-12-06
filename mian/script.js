@@ -41,7 +41,7 @@ const projects = [{
         icon: '💻',
         status: 'live',
         tech: ['Express', 'Docker', 'CodeMirror', 'Judge0 API'],
-        path: './projects/code-compiler/index.html',
+        path: '../notes_site/index.html',
         demoUrl: '#',
         githubUrl: '#'
     },

@@ -3,7 +3,7 @@ const tools = [{
         name: "Notes Sharing Website",
         category: "Study",
         description: "Subject-wise notes upload/download for your classmates and juniors.",
-        url: "../notes_web/index.html",
+        url: "../notes_site/index.html",
         tag: "Notes",
         icon: "fa-solid fa-book-open",
     },
@@ -19,7 +19,7 @@ const tools = [{
         name: "Online Compiler",
         category: "Coding",
         description: "Run and test programming code directly inside your browser.",
-        url: "projects/compiler-site/index.html",
+        url: "Compiler/index.html",
         tag: "Programming",
         icon: "fa-solid fa-code",
     },
@@ -27,7 +27,7 @@ const tools = [{
         name: "AI Tools Lab",
         category: "AI",
         description: "Future space for AI, ML and automation experiments (coming soon).",
-        url: "projects/ai-tools/index.html",
+        url: "../mian/index.html",
         tag: "Coming Soon",
         icon: "fa-solid fa-robot",
     },
@@ -35,11 +35,15 @@ const tools = [{
         name: "Attendance / Utility Tool",
         category: "Misc",
         description: "Any extra utility or experiment project you want to add.",
-        url: "projects/utility-tool/index.html",
+        url: "../Rahul portfolio/index.html",
         tag: "Utility",
         icon: "fa-solid fa-wrench",
     },
+
 ];
+
+
+
 
 // ===== DOM ELEMENTS =====
 const toolsGrid = document.getElementById("toolsGrid");
@@ -114,9 +118,9 @@ function applyFilters() {
 // ===== OPEN TOOL =====
 function openTool(url) {
     // same tab
-    window.location.href = url;
+    // window.location.href = url;
     // new tab ke liye:
-    // window.open(url, "_blank");
+    window.open(url, "_blank");
 }
 
 // ===== SMOOTH SCROLL HELPER =====
